@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8>
+<meta name ="viewport" content="width=device-width, initial-scale=1">
+<title>Simple Calculator</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script type="text/javascript"src="https://cdn.jsdelivr.net/npm/mathjs@11.5.1/lib/browser/math.min.js"></script>
+<script>
+function addlog(msg){
+var ul=document.getElementById("log");
+var li=document.createElement("li");
+var msg_text_node=document.createTextNode(msg);
+li.appendChild(msg_text_node);
+ul.appendChild(li);
+}
+
+function clear_log(){
+var foo=document.getElementById("log");
+foo.innerHTML='';
+}
+
+function calculate(){
+if(expression){
+try{
+expression=document.getElementById("expression").value;
+console.log(expression);
+answer=eval(expression);
+document.getElementById("expression").value=answer;
+addlog(expression +" = "+answer); 
+}
+catch(e){
+console.log("wrong expression");
+addlog(expression+" is invalid");
+}
+}}
+
+function math_calculate(){
+if(expression){
+try{
+expression=document.getElementById("expression").value;
+console.log(expression);
+answer=math.evaluate(expression);
+document.getElementById("expression").value=answer;
+addlog(expression +" = "+answer); 
+}
+catch(e){
+console.log("wrong expression");
+addlog(expression+" is invalid");
+}
+}}
+
+function input_v(v){
+expression=document.getElementById("expression").value;
+expression=expression+v;
+document.getElementById("expression").value=expression;
+
+}
+function set_clear(){
+document.getElementById("expression").value="";
+}
+function set_backspace(){
+ex=document.getElementById("expression").value;
+if(ex.length >=1){
+var es=ex.replace(ex[ex.length - 1],'');
+document.getElementById("expression").value=es;
+}
+else{
+document.getElementById("expression").value='';
+}
+}
+function initialize_app(){
+calculate_button=document.getElementById("calculate");
+calculate_button.addEventListener("click",math_calculate);
+}
+</script>
+</head>
+<body onload="initialize_app()">
+<div class="container">
+<div class="row">
+<div class="col">
+</div>
+<div class="col">
+<input type="input" class="form-control" placeholder="3+9" id="expression"/>
+<button type="button" class="btn btn-primary" id="clear" onclick=set_clear()>Clear</button>
+<button type="button" class="btn btn-primary" id="backspace" onclick=set_backspace()>Backspace</button>
+</div>
+<div class="col">
+</div>
+</div>
+
+<div class="row">
+<div class="col">
+</div>
+<div class="col">
+<button type="button" class="btn btn-primary" onclick=input_v('7')>7</button>
+<button type="button" class="btn btn-primary" onclick=input_v('8')>8</button>
+<button type="button" class="btn btn-primary" onclick=input_v('9')>9</button>
+<button type="button" class="btn btn-warning" onclick=input_v('/')>/</button>
+</div>
+<div class='col'>
+</div>
+</div>
+
+<div class="row">
+<div class="col">
+</div>
+<div class="col">
+<button type="button" class="btn btn-primary" onclick=input_v('4')>4</button>
+<button type="button" class="btn btn-primary" onclick=input_v('5')>5</button>
+<button type="button" class="btn btn-primary" onclick=input_v('6')>6</button>
+<button type="button" class="btn btn-warning" onclick=input_v('*')>*</button>
+</div>
+<div class='col'>
+</div>
+</div>
+
+
+<div class="row">
+<div class="col">
+</div>
+<div class="col">
+<button type="button" class="btn btn-primary" onclick=input_v('1')>1</button>
+<button type="button" class="btn btn-primary" onclick=input_v('2')>2</button>
+<button type="button" class="btn btn-primary" onclick=input_v('3')>3</button>
+<button type="button" class="btn btn-warning" onclick=input_v('-')>-</button>
+</div>
+<div class='col'>
+</div>
+</div>
+
+<div class="row">
+<div class="col">
+</div>
+<div class="col">
+<button type="button" class="btn btn-primary" onclick=input_v('0')>0</button>
+<button type="button" class="btn btn-primary" onclick=input_v('.')>.</button>
+<button type="button" class="btn btn-success" id="calculate">=</button>
+<button type="button" class="btn btn-warning" onclick=input_v("+")>+</button>
+</div>
+<div class='col'>
+</div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col">
+</div>
+<div class="col">
+<h3>Log</h3>
+<ul id="log">
+</ul>
+</div>
+<div class="col">
+<button type="button" class="btn btn-primary" id="clear_log" onclick=clear_log()>Clear Log</button>
+</div>
+</div>
+
+
+
+
+
+</div>
+</body>
+</html>
